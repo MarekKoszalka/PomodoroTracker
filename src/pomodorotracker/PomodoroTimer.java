@@ -7,19 +7,19 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 public class PomodoroTimer /*implements ActionListener*/{
-    private long startTime;
+    private long startMoment;
     private long pauseTimeTotal;
     private long stopMoment;
-    private long finishTime;
     private long requestedTime;          // time is tirequestedme after which counting is finished.
     private long elapsedTime;
     private boolean isTicking;
     
 //+++++++++++++++++++++++++CONSTRUCTOR++++++++++++++++++++++++++++++++++++++++++    
     public PomodoroTimer(){
-        startTime = 0;
-        finishTime = 0;
-        requestedTime = 0;
+        startMoment       = 0;
+        finishMoment      = 0;
+        requestedTime   = 0;
+        elapsedTime     = 0;
         }
 //+++++++++++++++++++++++++METHODS++++++++++++++++++++++++++++++++++++++++++++++
     //--------------SETTERS-----------------------------------------------------
@@ -46,16 +46,14 @@ public class PomodoroTimer /*implements ActionListener*/{
             pauseTimeTotal += System.currentTimeMillis() - stopMoment;
         }
         this.setIfTicking(true);
-        this.startTime = System.currentTimeMillis();
+        this.startMoment = System.currentTimeMillis();
     }
     //TODO trzeba popracować nad logiką tego timerka... zamysł dobry, ale trzeba dopracować szczegóły
     public final void stop(){
         stopMoment = System.currentTimeMillis();
         this.setIfTicking(false);
     }
-    
     /*@Override
     public void actionPerformed(ActionEvent e){
-        
     }*/
 }
