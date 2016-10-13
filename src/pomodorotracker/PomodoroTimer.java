@@ -34,7 +34,7 @@ public class PomodoroTimer /*implements ActionListener*/{
     private boolean getIfTicking(){
         return this.isTicking;
     }
-        
+            
     public final long getActualTimeLeft(){
         long t = requestedTime - (System.currentTimeMillis() - startTime ) + pauseTimeTotal;
         if(t >= 0);
