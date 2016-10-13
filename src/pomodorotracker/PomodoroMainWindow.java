@@ -79,7 +79,5 @@ public class PomodoroMainWindow extends JFrame implements ActionListener{
                 jLabel.setText(String.valueOf(pomodoroTimer.getActualTimeLeft()/1000));
             }
         }
-        
-        
     }
 }
