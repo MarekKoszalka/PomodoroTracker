@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import javax.swing.JLabel;
 
 /**
@@ -16,16 +17,20 @@ import javax.swing.JLabel;
  */
 public class PomodoroMainWindow extends JFrame implements ActionListener{
 //++++++++++++++++++++++++VARIABLES AND OBJECTS+++++++++++++++++++++++++++++++++
+    private static final int ONE_SEC = 1000;
     private final Container container;
     private final BorderLayout containerBorderLayout;
+    //TODO zamienic te tablice buttonow na LISTę
     private final JButton[] jButtonArray;
     private final JPanel jCenterPanel;
     private final JLabel jLabel;
     private final PomodoroTimer pomodoroTimer;
-    int buttonsCount = 2;
+    private Timer timer;
+    int buttonsCount = 3;
 //++++++++++++++++++++++++CONSTRUCTOR+++++++++++++++++++++++++++++++++++++++++++
     public PomodoroMainWindow(){
-        pomodoroTimer = new PomodoroTimer();
+        pomodoroTimer = new PomodoroTimer(100000);
+        timer = new javax.swing.Timer(ONE_SEC, this);
 //------------------------CONTAINER AND LAYOUTS-???-----------------------------
         container = this.getContentPane();
         jCenterPanel = new JPanel();
@@ -35,10 +40,13 @@ public class PomodoroMainWindow extends JFrame implements ActionListener{
         jButtonArray = new JButton[buttonsCount];
         jButtonArray[0] = new JButton("START");
         jButtonArray[1] = new JButton("STOP");
+        jButtonArray[2] = new JButton("RESUME");
         jButtonArray[0].setBackground(Color.GREEN);
         jButtonArray[1].setBackground(Color.RED);
+        jButtonArray[2].setBackground(Color.ORANGE);
         jButtonArray[0].addActionListener(this);
         jButtonArray[1].addActionListener(this);
+        jButtonArray[2].addActionListener(this);
         container.add(jCenterPanel, BorderLayout.CENTER);
 //------------------------------------------------------------------------------        
         for(int i=0; i < buttonsCount; i++){
@@ -54,13 +62,24 @@ public class PomodoroMainWindow extends JFrame implements ActionListener{
     //TODO dodać jakis Timer-odswiezajacy wartosc czasu...
     //TODO dodać formatowanie czasu z milisekund na jakiś przyjazny format !
     public void actionPerformed(ActionEvent e){
-        if      (e.getSource()==jButtonArray[0]){
+        if      (e.getSource() == jButtonArray[0]){
             pomodoroTimer.start();
+            timer.start();
             jLabel.setText(String.valueOf((pomodoroTimer.getActualTimeLeft()/1000)));
         }
                 
-        else if (e.getSource()==jButtonArray[1]){
+        else if (e.getSource() == jButtonArray[1]){
             pomodoroTimer.stop();
         }
+        else if (e.getSource() == jButtonArray[2]){
+            pomodoroTimer.resume();
+        }
+        else if (e.getSource() == timer){
+            if(pomodoroTimer.getIfTicking()){
+                jLabel.setText(String.valueOf(pomodoroTimer.getActualTimeLeft()/1000));
+            }
+        }
+        
+        
     }
 }
