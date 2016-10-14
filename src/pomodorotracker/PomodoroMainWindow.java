@@ -18,6 +18,9 @@ import javax.swing.JLabel;
 public class PomodoroMainWindow extends JFrame implements ActionListener{
 //++++++++++++++++++++++++VARIABLES AND OBJECTS+++++++++++++++++++++++++++++++++
     private static final int ONE_SEC = 1000;
+    private int buttonMode;
+    private static final int START_BUTTON_MODE = 1;
+    private static final int RESUME_BUTTON_MODE = 2;
     private final Container container;
     private final BorderLayout containerBorderLayout;
     //TODO zamienic te tablice buttonow na LISTę
@@ -31,6 +34,7 @@ public class PomodoroMainWindow extends JFrame implements ActionListener{
     public PomodoroMainWindow(){
         pomodoroTimer = new PomodoroTimer(100000);
         timer = new javax.swing.Timer(ONE_SEC, this);
+        buttonMode = START_BUTTON_MODE;
 //------------------------CONTAINER AND LAYOUTS-???-----------------------------
         container = this.getContentPane();
         jCenterPanel = new JPanel();
@@ -63,9 +67,26 @@ public class PomodoroMainWindow extends JFrame implements ActionListener{
     //TODO dodać formatowanie czasu z milisekund na jakiś przyjazny format !
     public void actionPerformed(ActionEvent e){
         if      (e.getSource() == jButtonArray[0]){
-            pomodoroTimer.start();
-            timer.start();
-            jLabel.setText(String.valueOf((pomodoroTimer.getActualTimeLeft()/1000)));
+            
+            switch(buttonMode){
+                case 1:{
+                    pomodoroTimer.start();
+                    timer.start();
+                    jLabel.setText(String.valueOf((pomodoroTimer.getActualTimeLeft()/1000)));
+                    buttonMode = RESUME_BUTTON_MODE;
+                    jButtonArray[0].setBackground(Color.ORANGE);
+                    jButtonArray[0].setText("RESUME");
+                    //TODO pomyslec nad napisaniem jakiejs funkcji obslugujacej to zmiane 
+                }
+                break;
+                case 2:{
+                    if(pomodoroTimer.getIfTicking()){
+                    jLabel.setText(String.valueOf(pomodoroTimer.getActualTimeLeft()/1000));
+                    buttonMode = START_BUTTON_MODE;
+                    //TODO dodac zmiane na START button ponownie
+                    }
+                }
+            }
         }
                 
         else if (e.getSource() == jButtonArray[1]){
