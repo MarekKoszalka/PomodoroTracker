@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 public class PomodoroTimer /*implements ActionListener*/{
+//++++++++++++++++++++++++VARIABLES AND OBJECTS+++++++++++++++++++++++++++++++++
     private long startMoment;
     private long pauseTimeTotal;
     private long stopMoment;
