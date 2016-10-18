@@ -11,8 +11,8 @@ public class PomodoroTimer /*implements ActionListener*/{
     private long startMoment;
     private long pauseTimeTotal;
     private long stopMoment;
-    private long requestedTime;          // time is requested time after which counting is finished.
-    private boolean isTicking;
+    private long requestedTime; // time is requested time after... 
+    private boolean isTicking;  //...which counting is finished.
     
 //+++++++++++++++++++++++++CONSTRUCTOR++++++++++++++++++++++++++++++++++++++++++    
     public PomodoroTimer(){
@@ -28,7 +28,7 @@ public class PomodoroTimer /*implements ActionListener*/{
         }
 //+++++++++++++++++++++++++METHODS++++++++++++++++++++++++++++++++++++++++++++++
     //--------------SETTERS-----------------------------------------------------
-    public final void setRequestedTime(int t){
+    public final void setRequestedTime(long t){
         requestedTime = t;
     }
     

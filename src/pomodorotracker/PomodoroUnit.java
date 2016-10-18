@@ -5,19 +5,36 @@
  */
 package pomodorotracker;
 
+import java.time.LocalDate;
 /**
  *
  * @author Marek
  */
-public class PomodoroUnit {
-//+++++++++++++++++++++++++++++++++++++++++++++++++++VARIABLES AND OBJECTS++++++
-    private String category;
-    private String description;
-    private int    duration;//TODO duration should have some kind of time format
-    private int    date; //TODO date should have some date format
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++CONTRUCTORS+++++++++++++
-    public PomodoroUnit(){
+public final class PomodoroUnit {
+//++++++++++++++++++++++++++++++++++++++++++++++++++ VARIABLES AND OBJECTS +++++
+    private String      category;
+    private String      description;
+    private long        duration;
+    private LocalDate   date;
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++ CONTRUCTORS ++++++++++++
+    public PomodoroUnit(String category, String description, long duration){
+        this.category    = category;
+        this.description = description;
+        this.duration    = duration;
+        this.date        = LocalDate.now();
     }
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++METHODS++++++++++++++++
-    
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++ METHODS +++++++++++++++
+    //-------------------------------------------------- GETTERS ---------------
+    public String getCategory(){
+        return this.category;
+    }
+    public String getDescription(){
+        return this.description;
+    }
+    public long getDuration(){
+        return this.duration;
+    }
+    public LocalDate getDate(){
+        return this.date;
+    }
 }
