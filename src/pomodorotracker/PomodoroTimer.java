@@ -2,10 +2,6 @@ package pomodorotracker;
 /**
  * @author Marek Koszalka from Poland
  */
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.Timer;
-
 public class PomodoroTimer /*implements ActionListener*/{
 //++++++++++++++++++++++++VARIABLES AND OBJECTS+++++++++++++++++++++++++++++++++
     private long startMoment;
@@ -44,6 +40,11 @@ public class PomodoroTimer /*implements ActionListener*/{
         long t = requestedTime - (System.currentTimeMillis() - startMoment ) + pauseTimeTotal;
         if(t >= 0);
             return (t);
+    }
+    public final String getActualTimeLeftString(){
+        long minutes = getActualTimeLeft()/60000;
+        long seconds = (getActualTimeLeft() - minutes*60000)/1000;
+        return (minutes + ":" + seconds);
     }
     //--------------OTHER METHODS-----------------------------------------------
     public final void start(){

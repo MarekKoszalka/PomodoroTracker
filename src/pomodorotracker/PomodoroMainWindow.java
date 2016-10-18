@@ -14,8 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 import javax.swing.JLabel;
-import java.time.Duration;
-
 /**
  * @author Marek
  */
@@ -29,21 +27,20 @@ public class PomodoroMainWindow extends JFrame implements ActionListener{
     private final BorderLayout containerBorderLayout;
     //TODO zamienic te tablice buttonow na LISTę
     private final ArrayList<JButton> jButtonArrayList;
-    private final JPanel jCenterPanel;
+    private final JPanel jCenterPanel, jBottomPanel;
     private final JLabel jLabel;
     private final JTextField jTextField;
     private final PomodoroTimer pomodoroTimer;
     private Timer timer;
-    private Duration displayableTime;
 //++++++++++++++++++++++++CONSTRUCTOR+++++++++++++++++++++++++++++++++++++++++++
     public PomodoroMainWindow(){
         pomodoroTimer   = new PomodoroTimer(10000);
-        displayableTime = Duration.ZERO;
         timer           = new javax.swing.Timer(TENTH_OF_SEC, this);
         buttonMode      = START_BUTTON_MODE;
 //------------------------CONTAINER AND LAYOUTS-???-----------------------------
         container    = this.getContentPane();
         jCenterPanel = new JPanel();
+        jBottomPanel = new JPanel();
         jTextField   = new JTextField("set PomTime in milis");
         jTextField.setColumns(14);
         containerBorderLayout = new BorderLayout();
@@ -70,19 +67,20 @@ public class PomodoroMainWindow extends JFrame implements ActionListener{
         jCenterPanel.add(jTextField);
         jCenterPanel.add(jLabel);
         container.add(jCenterPanel, BorderLayout.CENTER);
+        container.add(jBottomPanel, BorderLayout.PAGE_END);
     }
 //++++++++++++++++++++METHODS OF POMODORO MAIN WINDOW+++++++++++++++++++++
     
 //ACTION LISTENER-----------------------------------------------
     @Override
-    //TODO dodać formatowanie czasu z milisekund na jakiś przyjazny format !
     public void actionPerformed(ActionEvent e){
         if      (e.getSource() == jButtonArrayList.get(0)){
             switch(buttonMode){
                 case 1:{
                     pomodoroTimer.start();
                     timer.start();
-                    jLabel.setText(pomodoroTimer.getActualTimeLeft()/60000 + ":" + pomodoroTimer.getActualTimeLeft()/1000);
+                    //ponizsze poprawic i moze wrzucic to do jakiejs funkcji
+                    jLabel.setText(pomodoroTimer.getActualTimeLeftString());
                     buttonMode = RESUME_BUTTON_MODE;
                     jButtonArrayList.get(0).setBackground(Color.ORANGE);
                     jButtonArrayList.get(0).setText("RESUME");
@@ -92,7 +90,7 @@ public class PomodoroMainWindow extends JFrame implements ActionListener{
                 case 2:{
                     pomodoroTimer.resume();
                     if(pomodoroTimer.getIfTicking()){
-                    jLabel.setText(pomodoroTimer.getActualTimeLeft()/60000 + ":" + pomodoroTimer.getActualTimeLeft()/1000);
+                    jLabel.setText(pomodoroTimer.getActualTimeLeftString());
                     buttonMode = START_BUTTON_MODE;
                     jButtonArrayList.get(0).setBackground(Color.GREEN);
                     jButtonArrayList.get(0).setText("START");
@@ -116,7 +114,7 @@ public class PomodoroMainWindow extends JFrame implements ActionListener{
                 pomodoroTimer.stop();
             }
             if(pomodoroTimer.getIfTicking()){
-                jLabel.setText(pomodoroTimer.getActualTimeLeft()/60000 + ":" + pomodoroTimer.getActualTimeLeft()/1000);
+                jLabel.setText(pomodoroTimer.getActualTimeLeftString());
             }
         }
     }
