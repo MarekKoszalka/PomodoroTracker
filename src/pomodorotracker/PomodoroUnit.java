@@ -24,6 +24,19 @@ public final class PomodoroUnit {
         this.date        = LocalDate.now();
     }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++ METHODS +++++++++++++++
+    //-------------------------------------------------- SETTERS ---------------
+    public void setCategory(String category){
+        this.category = category;
+    }
+    public void setDescription(String description){
+        this.description = description;
+    }
+    public void setDuration(long duration){
+        this.duration = duration;
+    }
+    public void setDate(LocalDate date){
+        this.date = date;
+    }
     //-------------------------------------------------- GETTERS ---------------
     public String getCategory(){
         return this.category;

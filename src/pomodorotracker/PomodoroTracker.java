@@ -18,7 +18,6 @@ public class PomodoroTracker {
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainWindow.setTitle("PomodoroTracker");
         
-        
         MainWinController mainController = new MainWinController(); //Controller
 /*poniższa linijka ustawia rozmiar okna maksymalny dla dowolnego
 wyswietlacza, ale nie ustawia FULL SCREEN mode.*//*following line of code is

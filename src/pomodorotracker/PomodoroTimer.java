@@ -32,6 +32,9 @@ public class PomodoroTimer /*implements ActionListener*/{
         this.isTicking = b;
     }
     //--------------GETTERS-----------------------------------------------------
+    public long getRequestedTime(){
+        return this.requestedTime;
+    }
     public boolean getIfTicking(){
         return this.isTicking;
     }
