@@ -15,6 +15,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.util.*;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 /**
  * @author Marek
@@ -28,6 +29,7 @@ public class PomodoroMainWindow extends JFrame implements ActionListener, KeyLis
     private static final int RESUME_BUTTON_MODE = 2;
     private final PomodoroTimer pomodoroTimer;
     private final ArrayList<PomodoroUnit> PomUnitArrlist;
+    private final ArrayList<PomDataSingleDisplayer> PomDisplArrList;
     //---------------------------------------------- SWING COMPONENTS ----------
     private final Container container;
     private final BorderLayout containerBorderLayout;
@@ -39,6 +41,7 @@ public class PomodoroMainWindow extends JFrame implements ActionListener, KeyLis
 //++++++++++++++++++++++++CONSTRUCTOR+++++++++++++++++++++++++++++++++++++++++++
     public PomodoroMainWindow(){
         PomUnitArrlist  = new ArrayList();
+        PomDisplArrList = new ArrayList();
         pomodoroTimer   = new PomodoroTimer(10000);
         timer           = new javax.swing.Timer(TENTH_OF_SEC, this);
         buttonMode      = START_BUTTON_MODE;
@@ -83,13 +86,18 @@ public class PomodoroMainWindow extends JFrame implements ActionListener, KeyLis
         jBottomPanel.add(jTextField2);
         jBottomPanel.add(jLabel3);
         jBottomPanel.add(jTextField3);
+        jBottomPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3, true));
         jBottomPanel.add(jButtonArrayList.get(3));
         jCenterPanel.add(jBottomPanel);
         container.add(jCenterPanel, BorderLayout.CENTER);
 //container.add(jBottomPanel, BorderLayout.PAGE_END);
     }
-//++++++++++++++++++++ METHODS OF POMODORO MAIN WINDOW +++++++++++++++++++++++++    
-//ACTION LISTENER-----------------------------------------------
+//++++++++++++++++++++ METHODS OF POMODORO MAIN WINDOW +++++++++++++++++++++++++
+    //----------------------------------------------------PRIVATE---------------
+    public Container getContainer(){
+        return this.container;
+    }
+//ACTION LISTENER-----------------------------------------------() 
     @Override
     public void actionPerformed(ActionEvent e){
         int i = 0;
@@ -131,9 +139,12 @@ public class PomodoroMainWindow extends JFrame implements ActionListener, KeyLis
         
         else if (e.getSource() == jButtonArrayList.get(3)){
             PomUnitArrlist.add(new PomodoroUnit(jTextField2.getText(), jTextField3.getText(), pomodoroTimer.getRequestedTime()));
-                    //TEST
-            System.out.println(PomUnitArrlist.get(i).getCategory());
+            PomDisplArrList.add(new PomDataSingleDisplayer(PomUnitArrlist.get((PomUnitArrlist.size()-1))));    
+            this.jCenterPanel.add(PomDisplArrList.get(PomDisplArrList.size()-1).getPanelToDisplay());
+            this.validate();
+            //TEST
             
+            System.out.println(PomUnitArrlist.get(i).getCategory());
             i++;
         }
         else if (e.getSource() == timer){
@@ -148,6 +159,7 @@ public class PomodoroMainWindow extends JFrame implements ActionListener, KeyLis
     @Override
     public void keyPressed(KeyEvent e){
         if(e.getKeyCode()== KeyEvent.VK_ENTER){
+            
             System.out.println("Naciśnięto Enter");
         }
         else if(e.getKeyCode() == KeyEvent.VK_A){
