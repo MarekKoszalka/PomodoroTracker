@@ -21,13 +21,10 @@ public class PomDataSingleDisplayer extends JPanel{
     private JLabel dateTextF;
     private JPanel panelToDisplay;
     
-    public PomDataSingleDisplayer(PomodoroUnit pomU) {
+    public PomDataSingleDisplayer(PomUnit pomU) {
         dateTextF = new JLabel(String.valueOf(pomU.getDate()));
-        
         categoryTextF = new JLabel(pomU.getCategory());
-        
         descriptionTextF = new JLabel(pomU.getDescription());
-        
         durationTextF = new JLabel(String.valueOf(pomU.getDuration()));
         
         panelToDisplay = new JPanel();

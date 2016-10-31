@@ -2,25 +2,26 @@ package pomodorotracker;
 /**
  * @author Marek Koszalka from Poland
  */
-public class PomodoroTimer /*implements ActionListener*/{
+class CountdownTimer{
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ CONSTANS ++++++++++
+    private static final int TENTH_OF_SEC = 100;
 //++++++++++++++++++++++++VARIABLES AND OBJECTS+++++++++++++++++++++++++++++++++
     private long startMoment;
     private long pauseTimeTotal;
     private long stopMoment;
-    private long requestedTime; // time is requested time after... 
+    private long requestedTime; // this is requested time after... 
     private boolean isTicking;  //...which counting is finished.
     
 //+++++++++++++++++++++++++CONSTRUCTOR++++++++++++++++++++++++++++++++++++++++++    
-    public PomodoroTimer(){
+    public CountdownTimer(){
         startMoment     = 0;
         stopMoment      = 0;
         requestedTime   = 0;
         }
-    public PomodoroTimer(long rTime){
+    public CountdownTimer(long requestedTime){
         startMoment     = 0;
         stopMoment      = 0;
-        requestedTime   = rTime;
-      
+        this.requestedTime   = requestedTime;      
         }
 //+++++++++++++++++++++++++METHODS++++++++++++++++++++++++++++++++++++++++++++++
     //--------------SETTERS-----------------------------------------------------

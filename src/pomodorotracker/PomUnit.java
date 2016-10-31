@@ -10,14 +10,14 @@ import java.time.LocalDate;
  *
  * @author Marek
  */
-public final class PomodoroUnit {
+public final class PomUnit {
 //++++++++++++++++++++++++++++++++++++++++++++++++++ VARIABLES AND OBJECTS +++++
     private String      category;
     private String      description;
     private long        duration;
     private LocalDate   date;
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++ CONTRUCTORS ++++++++++++
-    public PomodoroUnit(String category, String description, long duration){
+    public PomUnit(String category, String description, long duration){
         this.category    = category;
         this.description = description;
         this.duration    = duration;
