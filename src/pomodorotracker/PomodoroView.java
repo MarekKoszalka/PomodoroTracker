@@ -24,11 +24,10 @@ public class PomodoroView extends JFrame{
     //---------------------------------------------- SWING COMPONENTS ----------
     private final Container container;
     private final BorderLayout containerBorderLayout;
-    private final ArrayList<JButton> jButtonArrayList;
-    private final ArrayList<JLabel> jLabelArrayList;
-    private final ArrayList<JTextField> jTextFieldArrayList;
-    private final JPanel jCenterPanel, jAddingPomPanel;
-    private final JLabel jLabel, jLabel2, jLabel3;
+    public ArrayList<JButton> jButtonArrayList;
+    private ArrayList<JLabel> jLabelArrayList;
+    private ArrayList<JTextField> jTextFieldArrayList;
+    private JPanel jCenterPanel, jAddingPomPanel;
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ CONSTRUCTOR +++++++
     public PomodoroView(){
         this.setVisible(true);
@@ -50,7 +49,6 @@ public class PomodoroView extends JFrame{
         jTextFieldArrayList.get(2).setColumns(10);
         containerBorderLayout = new BorderLayout();
         container.setLayout(containerBorderLayout);
-        jLabelArrayList = new ArrayList();
 //-------------------------BUTTONS----------------------------------------------        
         jButtonArrayList = new ArrayList();
         jButtonArrayList.add(new JButton("START"));
@@ -58,11 +56,7 @@ public class PomodoroView extends JFrame{
         jButtonArrayList.add(new JButton("SET requested time"));
         jButtonArrayList.add(new JButton("Add Pomodoro"));
         jButtonArrayList.get(0).setBackground(Color.GREEN);
-        jButtonArrayList.get(1).setBackground(Color.RED);
-        
-//LEARNING how to add lambda action listener   
-        jButtonArrayList.get(1).addActionListener(e -> System.out.println("LambdaExpression XDDD"));
-        
+        jButtonArrayList.get(1).setBackground(Color.RED);      
         
         for(int i=0; i< jButtonArrayList.size(); i++){
             if(i==3)break;
@@ -70,17 +64,18 @@ public class PomodoroView extends JFrame{
             jButtonArrayList.get(i).setFont(new Font("Times New Roman", Font.BOLD, 25));
             jCenterPanel.add(jButtonArrayList.get(i));
         }
-        jLabel = new JLabel();
-        jLabel2 = new JLabel("Category: ");
-        jLabel3 = new JLabel("Description: ");
-        jLabel.setFont(new Font("Times New Roman", Font.BOLD, 80));
-        jLabel.setText("00:00");
+        jLabelArrayList = new ArrayList();
+        jLabelArrayList.add(new JLabel());
+        jLabelArrayList.add(new JLabel("Category: "));
+        jLabelArrayList.add(new JLabel("Description: "));
+        jLabelArrayList.get(0).setFont(new Font("Times New Roman", Font.BOLD, 80));
+        jLabelArrayList.get(0).setText("00:00");
         jCenterPanel.add(jTextFieldArrayList.get(0));
-        jCenterPanel.add(jLabel);
+        jCenterPanel.add(jLabelArrayList.get(0));
         
-        jAddingPomPanel.add(jLabel2);
+        jAddingPomPanel.add(jLabelArrayList.get(1));
         jAddingPomPanel.add(jTextFieldArrayList.get(1));
-        jAddingPomPanel.add(jLabel3);
+        jAddingPomPanel.add(jLabelArrayList.get(2));
         jAddingPomPanel.add(jTextFieldArrayList.get(2));
         jAddingPomPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3, true));
         jAddingPomPanel.add(jButtonArrayList.get(3));
@@ -89,7 +84,7 @@ public class PomodoroView extends JFrame{
         this.validate();
     }
 //++++++++++++++++++++ METHODS OF POMODORO VIEW ++++++++++++++++++++++++++++++++
-    //----------------------------------------------------PRIVATE---------------
+    //--------------------------------------------------- PUBLIC ---------------
     public ArrayList getButtonList(){
         return this.jButtonArrayList;
     }
@@ -110,5 +105,27 @@ public class PomodoroView extends JFrame{
     }
     public JTextField getTextListFromList(int index){
         return this.jTextFieldArrayList.get(index);
+    }
+    public void setStartButtonMode(String modeName){
+        switch(modeName){
+            case "START":
+                jButtonArrayList.get(0).setText(modeName);
+                jButtonArrayList.get(0).setBackground(Color.GREEN);
+                this.repaint();
+                this.validate();
+                break;
+            case "PAUSE":
+                jButtonArrayList.get(0).setText(modeName);
+                jButtonArrayList.get(0).setBackground(Color.BLUE);
+                this.repaint();
+                this.validate();
+                break;
+            case "RESUME":
+                jButtonArrayList.get(0).setText(modeName);
+                jButtonArrayList.get(0).setBackground(Color.MAGENTA);
+                this.repaint();
+                this.validate();
+                break;
+        }
     }
 }

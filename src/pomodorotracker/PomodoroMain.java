@@ -1,7 +1,5 @@
 package pomodorotracker;
 //TODO build the greatest pomodoro-tracker application and multiplatform !!!
-import java.awt.Toolkit;
-import javax.swing.JFrame;
 
 /**
  *

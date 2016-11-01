@@ -9,7 +9,6 @@ package pomodorotracker;
  *
  * @author Marek
  */
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
@@ -18,71 +17,80 @@ import javax.swing.Timer;
             
 public class PomodoroController implements ActionListener, KeyListener{ //TODO przerobic kod tak aby pasowal do konwencji MVC
 //++++++++++++++++++++++++++++++++++++++++++++++++ VARIABLES AND OBJECTS +++++++
-    private final PomodoroView view;
-    private final PomodoroModel model;
+    private PomodoroView view;
+    private PomodoroModel model;
     //--------------------------------------------------------------------------
     private int buttonMode;
     private Timer timer;
-    private final CountdownTimer pomodoroTimer;
+    private CountdownTimer pomodoroTimer;
     //----------------------------------------------------- CONSTANS -----------
     private static final int START_BUTTON_MODE = 1;
-    private static final int RESUME_BUTTON_MODE = 2;
+    private static final int PAUSE_BUTTON_MODE = 2;
+    private static final int RESUME_BUTTON_MODE = 3;
+    private static final int TENTH_OF_SEC = 100;
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++ CONSTRUKTOR ++++++++    
     public PomodoroController(PomodoroView view, PomodoroModel model){
         this.view = view;
         this.model = model;
-        initActionListeners(view);
-        pomodoroTimer   = new CountdownTimer(10000);
+        initActionListeners();
+        timer = new Timer(TENTH_OF_SEC, this);
+        pomodoroTimer   = new CountdownTimer(this.view, 10000);
+        
         buttonMode      = START_BUTTON_MODE;
     }
     public void addPomUnit(PomUnit pomUnit){
         model.getPomUnitList().add(pomUnit);
     }
-    private void initActionListeners(PomodoroView view){
-        view.getButtonList().get(0);
-    }
-    private void updateView(){
-    
-    }
+    private void initActionListeners(){
+        for(int i=0; i < view.getButtonList().size(); i++){
+            view.getButtonFromList(i).addActionListener(this);
+        }
+    }  
     @Override
     public void actionPerformed(ActionEvent e){
-        int i = 0;
         if      (e.getSource() == view.getButtonFromList(0)){
-            switch(buttonMode){
-                case 1:{
+            switch(buttonMode){/*TODO Dla czytelności kodu można cały ten blok
+                                ze switchem umiescic w jakiejs funkcji.*/
+                case START_BUTTON_MODE:{//TODO take this code to some function. to make this looks better, more clear.
                     pomodoroTimer.start();
                     timer.start();
-                    //ponizsze poprawic i moze wrzucic to do jakiejs funkcji
                     view.getLabelFromList(0).setText(pomodoroTimer.getActualTimeLeftString());
-                    buttonMode = RESUME_BUTTON_MODE;
-                    view.getButtonFromList(0).setBackground(Color.ORANGE);
-                    view.getButtonFromList(1).setText("RESUME");
+                    buttonMode = PAUSE_BUTTON_MODE;
+                    view.setStartButtonMode("PAUSE");
                     //TODO pomyslec nad napisaniem jakiejs funkcji obslugujacej to zmiane 
                 }
                 break;
-                case 2:{                    
-                    if(pomodoroTimer.getIfTicking()){
-                        pomodoroTimer.resume();
-                    }
+                case PAUSE_BUTTON_MODE:{
+                    pomodoroTimer.pause();
+                    view.getLabelFromList(0).setText(pomodoroTimer.getActualTimeLeftString());
+                    buttonMode = RESUME_BUTTON_MODE;
+                    view.setStartButtonMode("RESUME");
+                }
+                break;
+                case RESUME_BUTTON_MODE:{                                   
+                    pomodoroTimer.resume();
+                    view.getLabelFromList(0).setText(pomodoroTimer.getActualTimeLeftString());
+                    buttonMode = PAUSE_BUTTON_MODE;
+                    view.setStartButtonMode("PAUSE");
                 break;
                 }
             }
         }
-                
-        else if (e.getSource() == view.getButtonList().get(1)){
+        else if (e.getSource() == view.getButtonFromList(1)){
             pomodoroTimer.stop();
-            view.getLabelFromList(0).setText(pomodoroTimer.getActualTimeLeftString());
+            view.getLabelFromList(0).setText(pomodoroTimer.getRequestedTimeS());
             buttonMode = START_BUTTON_MODE;
-            view.getButtonFromList(0).setBackground(Color.GREEN);
-            view.getButtonFromList(0).setText("START");
+            view.setStartButtonMode("START");
+            /*TODO zaimplementowac funkcjonalnosc ktora dodaje pomodoro w 
+            przypadku zakończenia go przed ustalonym czasem... dodać zapytanie
+            czy użytkownik NA PEWNO chce zakończyć pomodoro przed czasem*/ 
+            //ten przycisk nie zmienia swojej funkcjonalnosci, zawsze robi to samo
         }
-        else if (e.getSource() == view.getButtonList().get(2)){
-            //tutaj mozna dodac try{}catch{} i wybierac tylko 5 elementowe
-            //stringi
-            //na ten moment implementuje lapanie tylko milisekund
+        else if (e.getSource() == view.getButtonFromList(2)){
             pomodoroTimer.setRequestedTime(Long.valueOf(view.getTextListFromList(0).getText()));
+            view.getLabelFromList(0).setText(pomodoroTimer.getRequestedTimeS());
         }
-        else if (e.getSource() == view.getButtonList().get(3)){
+        else if (e.getSource() == view.getButtonFromList(3)){
             model.getPomUnitList().add(new PomUnit(view.getTextListFromList(1).getText(),
                                     view.getTextListFromList(2).getText(),
                                     pomodoroTimer.getRequestedTime()));

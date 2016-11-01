@@ -17,4 +17,8 @@ public class PomodoroModel {
     public ArrayList getPomUnitList(){
         return this.pomUnitArrList;
     }
+    public void addPomUnitToList(PomUnit pomUnit){
+        this.pomUnitArrList.add(pomUnit);
+        //TODO ta funkcja powinna odświeżać VIEW po dodaniu POMa
+    }
 }
