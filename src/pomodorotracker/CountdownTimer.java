@@ -1,7 +1,6 @@
 package pomodorotracker;
 
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Formatter;
 
 /**
  * @author Marek Koszalka from Poland
@@ -68,7 +67,11 @@ class CountdownTimer{
         //uzywajac formattera jakiegos
         long minutes = getActualTimeLeft()/60000;
         long seconds = (getActualTimeLeft() - minutes*60000)/1000;
-        return (minutes + ":" + seconds);
+        Formatter fmt = new Formatter();
+        fmt.format("%02d:%02d", minutes, seconds); //TODO poprawic format
+        String formattedTime = fmt.toString();
+        fmt.close();        
+        return formattedTime;        
     }
     //--------------OTHER METHODS-----------------------------------------------
     public final void start(){
