@@ -11,11 +11,9 @@ package pomodorotracker;
  */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
 import javax.swing.Timer;
             
-public class PomodoroController implements ActionListener, KeyListener{ //TODO przerobic kod tak aby pasowal do konwencji MVC
+public class PomodoroController implements ActionListener{
 //++++++++++++++++++++++++++++++++++++++++++++++++ VARIABLES AND OBJECTS +++++++
     private PomodoroView view;
     private PomodoroModel model;
@@ -35,7 +33,6 @@ public class PomodoroController implements ActionListener, KeyListener{ //TODO p
         initActionListeners();
         timer = new Timer(TENTH_OF_SEC, this);
         pomodoroTimer   = new CountdownTimer(this.view, 10000);
-        
         buttonMode      = START_BUTTON_MODE;
     }
     public void addPomUnit(PomUnit pomUnit){
@@ -45,7 +42,7 @@ public class PomodoroController implements ActionListener, KeyListener{ //TODO p
         for(int i=0; i < view.getButtonList().size(); i++){
             view.getButtonFromList(i).addActionListener(this);
         }
-    }  
+    }
     @Override
     public void actionPerformed(ActionEvent e){
         if      (e.getSource() == view.getButtonFromList(0)){
@@ -95,7 +92,8 @@ public class PomodoroController implements ActionListener, KeyListener{ //TODO p
                                     view.getTextListFromList(2).getText(),
                                     pomodoroTimer.getRequestedTime()));
         }
-        else if (e.getSource() == timer){
+        else if (e.getSource() == timer){   
+            System.out.println("tik timer tik...");
             if(pomodoroTimer.getActualTimeLeft() <= 0){
                 pomodoroTimer.stop();
             }
@@ -105,17 +103,4 @@ public class PomodoroController implements ActionListener, KeyListener{ //TODO p
             }
         }
     }
-    @Override
-    public void keyPressed(KeyEvent e){
-        if(e.getKeyCode()== KeyEvent.VK_ENTER){    
-            System.out.println("Naciśnięto Enter");
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_A){
-            System.out.println("Naciśnięto \"A");
-        }
-    }
-    @Override
-    public void keyTyped(KeyEvent e){}
-    @Override
-    public void keyReleased(KeyEvent e){}
 }

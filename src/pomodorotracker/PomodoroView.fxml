@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="351.0" prefWidth="351.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="pomodorotracker.ControllerTESTTT">
+    <children>
+      <Pane layoutX="14.0" layoutY="15.0" prefHeight="88.0" prefWidth="317.0">
+         <children>
+            <Button fx:id="startButton" layoutX="81.0" layoutY="40.0" onAction="#handleStartButtonAction" prefHeight="25.0" prefWidth="78.0" text="START">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Button fx:id="stopButton" layoutX="159.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleStopButtonAction" prefHeight="25.0" prefWidth="78.0" text="STOP">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Label fx:id="leftTime" alignment="CENTER" layoutX="120.0" layoutY="7.0" prefHeight="37.0" prefWidth="78.0" text="00:00">
+               <font>
+                  <Font size="24.0" />
+               </font></Label>
+            <Button layoutX="14.0" layoutY="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="41.0" text="Sett" />
+         </children>
+      </Pane>
+      <TableView layoutX="14.0" layoutY="129.0" prefHeight="206.0" prefWidth="317.0">
+        <columns>
+          <TableColumn prefWidth="50.0" text="Date" />
+          <TableColumn prefWidth="85.0" text="Category" />
+          <TableColumn prefWidth="115.0" text="Description" />
+          <TableColumn prefWidth="66.0" text="Duration" />
+        </columns>
+      </TableView>
+    </children>
+</AnchorPane>

@@ -5,7 +5,7 @@ import java.util.Formatter;
 /**
  * @author Marek Koszalka from Poland
  */
-class CountdownTimer{
+public class CountdownTimer{
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ CONSTANS ++++++++++
 
 //++++++++++++++++++++++++VARIABLES AND OBJECTS+++++++++++++++++++++++++++++++++
@@ -19,11 +19,13 @@ class CountdownTimer{
     public CountdownTimer(){
         this.startMoment     = 0;
         this.stopMoment      = 0;
+        this.pauseTimeTotal = 0;
         this.requestedTime   = 0;
         }
     public CountdownTimer(long requestedTime){
         this.startMoment     = 0;
         this.stopMoment      = 0;
+        this.pauseTimeTotal = 0;
         this.requestedTime   = requestedTime;      
         }
     public CountdownTimer(PomodoroView view, long requestedTime){
