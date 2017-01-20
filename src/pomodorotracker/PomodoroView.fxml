@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="351.0" prefWidth="351.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="pomodorotracker.ControllerTESTTT">
+<AnchorPane id="AnchorPane" prefHeight="351.0" prefWidth="351.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pomodorotracker.Controller">
     <children>
       <Pane layoutX="14.0" layoutY="15.0" prefHeight="88.0" prefWidth="317.0">
          <children>
@@ -24,7 +24,7 @@
                <font>
                   <Font size="24.0" />
                </font></Label>
-            <Button layoutX="14.0" layoutY="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="41.0" text="Sett" />
+            <Button  fx:id="settingsButton" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="41.0" text="Sett" />
          </children>
       </Pane>
       <TableView layoutX="14.0" layoutY="129.0" prefHeight="206.0" prefWidth="317.0">

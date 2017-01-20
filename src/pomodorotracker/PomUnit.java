@@ -14,9 +14,11 @@ public final class PomUnit {
 //++++++++++++++++++++++++++++++++++++++++++++++++++ VARIABLES AND OBJECTS +++++
     private String      category;
     private String      description;
-    private long        duration;
+    private long        duration;    // in miliseconds
     private LocalDate   date;
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++ CONTRUCTORS ++++++++++++
+    public PomUnit(){
+    }
     public PomUnit(String category, String description, long duration){
         this.category    = category;
         this.description = description;
@@ -33,6 +35,16 @@ public final class PomUnit {
     }
     public void setDuration(long duration){
         this.duration = duration;
+    }
+    public void setDuration(String durationS){
+        try{
+            this.duration = Long.valueOf(durationS);
+        }catch(NumberFormatException e){
+        System.out.println("Wystąpił błąd w Obiekcie " + this.toString()
+                    + "Błąd z rodzaju: " + e + "Podany String: " + durationS
+                    + "nie może zostać "
+                    + "Skonwertowany na long");
+        }
     }
     public void setDate(LocalDate date){
         this.date = date;

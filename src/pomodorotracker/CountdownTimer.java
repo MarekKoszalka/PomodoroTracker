@@ -28,13 +28,6 @@ public class CountdownTimer{
         this.pauseTimeTotal = 0;
         this.requestedTime   = requestedTime;      
         }
-    public CountdownTimer(PomodoroView view, long requestedTime){
-        this.startMoment     = 0;
-        this.stopMoment      = 0;
-        this.pauseTimeTotal = 0;
-        this.requestedTime   = requestedTime;
-        view.getLabelFromList(0).setText(this.getActualTimeLeftString());
-    }
 //+++++++++++++++++++++++++METHODS++++++++++++++++++++++++++++++++++++++++++++++
     //--------------SETTERS-----------------------------------------------------
     public final void setRequestedTime(long t){

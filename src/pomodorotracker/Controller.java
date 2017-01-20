@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javax.swing.Timer;
 
 /**
@@ -37,6 +38,8 @@ public class Controller implements ActionListener{
     private Button settingsButton;
     @FXML
     private Label leftTime;
+    @FXML
+    private TableView tableOfPomUnits;
     
     @FXML
     private void handleStartButtonAction(ActionEvent event) {   
