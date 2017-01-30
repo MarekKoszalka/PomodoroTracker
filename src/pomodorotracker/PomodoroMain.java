@@ -26,4 +26,4 @@ public class PomodoroMain extends Application{
     public static void main(String[] args) {
         launch(args);
     }
-}
+}// TESTUJE GITHUBA Z ECLIPSEM

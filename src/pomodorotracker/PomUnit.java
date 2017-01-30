@@ -11,7 +11,7 @@ import java.time.LocalDate;
  * @author Marek
  */
 public final class PomUnit {
-//++++++++++++++++++++++++++++++++++++++LOL++++++++++++ VARIABLES AND OBJECTS +++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++ VARIABLES AND OBJECTS +++++
     private String      category;
     private String      description;
     private long        duration;    // in miliseconds
