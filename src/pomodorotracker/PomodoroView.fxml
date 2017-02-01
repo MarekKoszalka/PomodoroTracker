@@ -24,15 +24,15 @@
                <font>
                   <Font size="24.0" />
                </font></Label>
-            <Button  fx:id="settingsButton" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="41.0" text="Sett" />
+            <Button fx:id="settingsButton" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="41.0" text="Sett" />
          </children>
       </Pane>
-      <TableView layoutX="14.0" layoutY="129.0" prefHeight="206.0" prefWidth="317.0">
+      <TableView fx:id="tableOfPomUnits" layoutX="14.0" layoutY="129.0" prefHeight="206.0" prefWidth="317.0">
         <columns>
-          <TableColumn prefWidth="50.0" text="Date" />
-          <TableColumn prefWidth="85.0" text="Category" />
-          <TableColumn prefWidth="115.0" text="Description" />
-          <TableColumn prefWidth="66.0" text="Duration" />
+          <TableColumn fx:id="dateCol" prefWidth="50.0" text="Date" />
+          <TableColumn fx:id="categoryCol" prefWidth="85.0" text="Category" />
+          <TableColumn fx:id="descriptionCol" prefWidth="115.0" text="Description" />
+          <TableColumn fx:id="durationCol" prefWidth="66.0" text="Duration" />
         </columns>
       </TableView>
     </children>
