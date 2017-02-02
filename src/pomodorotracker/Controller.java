@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javax.swing.Timer;
 
@@ -24,24 +25,24 @@ import javax.swing.Timer;
  */
 public class Controller implements ActionListener, ListChangeListener<PomUnit> {
 
-    PomodoroModel              model;
-    public Timer               timer;
-    public CountdownTimer      pomodoroTimer;
-    private int                buttonMode;
-    private static final int   START_BUTTON_MODE  = 1;
-    private static final int   PAUSE_BUTTON_MODE  = 2;
-    private static final int   RESUME_BUTTON_MODE = 3;
-    private static final int   TENTH_OF_SEC       = 100;
+    PomodoroModel                        model;
+    public Timer                         timer;
+    public CountdownTimer                pomodoroTimer;
+    private int                          buttonMode;
+    private static final int             START_BUTTON_MODE  = 1;
+    private static final int             PAUSE_BUTTON_MODE  = 2;
+    private static final int             RESUME_BUTTON_MODE = 3;
+    private static final int             TENTH_OF_SEC       = 100;
     @FXML
-    private Button             startButton;
+    private Button                       startButton;
     @FXML
-    private Button             stopButton;
+    private Button                       stopButton;
     @FXML
-    private Button             settingsButton;
+    private Button                       settingsButton;
     @FXML
-    private Label              leftTime;
+    private Label                        leftTime;
     @FXML
-    private TableView<PomUnit> tableOfPomUnits;
+    private TableView<PomUnit>           tableOfPomUnits;
     @FXML
     private TableColumn<PomUnit, String> categoryCol;
     @FXML
@@ -50,13 +51,19 @@ public class Controller implements ActionListener, ListChangeListener<PomUnit> {
     private TableColumn<PomUnit, String> durationCol;
     @FXML
     private TableColumn<PomUnit, String> dateCol;
-    
+    @FXML
+    private TextField                    durationTextF;
+    @FXML
+    private TextField                    categoryTextF;
+    @FXML
+    private TextField                    descriptionTextF;
+
     @FXML
     private void handleStartButtonAction(ActionEvent event) {
         System.out.println("Przed switch(buttonMode)");
         switch (buttonMode) {/*
-                              * TODO Dla czytelności kodu można
-                              * cały ten blok ze switchem umiescic w
+                              * TODO Dla czytelności kodu można cały
+                              * ten blok ze switchem umiescic w
                               * jakiejs funkcji.
                               */
         case START_BUTTON_MODE: {// TODO take this code to some
@@ -97,17 +104,25 @@ public class Controller implements ActionListener, ListChangeListener<PomUnit> {
         buttonMode = START_BUTTON_MODE;
         setStartButtonMode("START");
     }
+    @FXML
+    private void handleAddButtonAction(ActionEvent event) {
+        System.out.println("Wowołano funkcję: handleAddButtonAction");
+            model.addPomUnitToList(new PomUnit(this.categoryTextF.getText(),
+                    this.descriptionTextF.getText(),
+                    Long.valueOf(this.durationTextF.getText())));
+            double prefHeight = this.tableOfPomUnits.getPrefHeight();
+            this.tableOfPomUnits.setPrefHeight(prefHeight-1);
+            this.tableOfPomUnits.setPrefHeight(prefHeight);
+    }
     public void initialize() {
         buttonMode = START_BUTTON_MODE;
         timer = new Timer(TENTH_OF_SEC, this);
         pomodoroTimer = new CountdownTimer(10000);
         model = new PomodoroModel(this);
-        
         categoryCol.setCellValueFactory(new PropertyValueFactory<PomUnit, String>("category"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<PomUnit, String>("description"));
         durationCol.setCellValueFactory(new PropertyValueFactory<PomUnit, String>("duration"));
         dateCol.setCellValueFactory(new PropertyValueFactory<PomUnit, String>("date"));
-    
         tableOfPomUnits.setItems(model.getPomUnitObsList());
     }
     public void setLeftTimeLabel(String value) {
@@ -143,8 +158,8 @@ public class Controller implements ActionListener, ListChangeListener<PomUnit> {
         }
     }
     @Override
-    public void onChanged(Change<? extends PomUnit> arg0) {
-        // TODO Auto-generated method stub
-        
+    public void onChanged(Change<? extends PomUnit> change) {
+        System.out.println("Wywolano funkcje OnChanged");
+        model.saveDataInFile();
     };
 }

@@ -21,9 +21,10 @@ public class PomodoroMain extends Application{
         stage.setTitle("Pomodoro FXML");
         stage.setScene(scene);
         stage.show();
+        
     }
     
     public static void main(String[] args) {
         launch(args);
     }
-}// TESTUJE GITHUBA Z ECLIPSEM
+}

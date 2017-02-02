@@ -1,4 +1,7 @@
-﻿Nauka,Programowanie w Javie,30000,08 01 2017 00 41 14
-Sport,Trening Burpees,34000,28 12 2016 18 15 18
-Nauka,Czytanie ksiąg o Javie,32000,01 02 2017 22 00 00
-Sport,Rzucianie trójek w kosza,31000,04 02 2017 17 00 12
+Sport,Trening Burpees,34000,2017-02-02
+Sport,Rzucianie trójek w kosza,31000,2017-02-02
+﻿Nauka,Programowanie w Javie,30000,2017-02-02
+Nauka,Słówka z niemieckiego,15000,2017-02-02
+Nauka,Słówka z angielskiego,12333,2017-02-02
+Nauka,Programowanie w Javie i C#,12322,2017-02-02
+Zdrowie,Picie wody,10000,2017-02-02

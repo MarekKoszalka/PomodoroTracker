@@ -9,6 +9,7 @@ package pomodorotracker;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -16,33 +17,28 @@ import java.util.ArrayList;
  */
 public class DataFilesService {
 
-    private FileReader fReader = null;
-    // private FileWriter fWriter = null;
+    private FileReader     fReader    = null;
+    // private BufferedReader buffReader = null;
+    private FileWriter     fWriter    = null;
+    private BufferedWriter buffWriter = null;
 
     public DataFilesService() {
+    }
+    public ArrayList<PomUnit> loadData() {
         try {
-            fReader = new FileReader("src/PomodoroTrackerData.txt");
+            this.fReader = new FileReader("src/PomodoroTrackerData.txt");
         } catch (FileNotFoundException e) {
             System.out.println("Nie można było otworzyć pliku z danymi");
         }
-    }
-    public ArrayList<PomUnit> loadData() {
         ArrayList<PomUnit> listOfPomUnits = new ArrayList<PomUnit>();
         PomUnit bufferPomUnit = new PomUnit();
-        // w tym momencie mamy otworzony nasz plik... ten plik
-        // przechodzi przez
-        // nasz FileReader bufor. Teraz trzeba użyć jakiejś funkcji
-        // do
-        // odczytywania poszczególnych znaków.
-        // Czytanie w pętli (potem może być w czymś innym, jeśli
-        // jest taka opcja)
         int charLoaded;
         int propertyCount = 0;
         String stringLoaded = "";
         try {
             do {
                 charLoaded = (int) fReader.read();
-                if ((charLoaded != ',') && (charLoaded != '\r') && (charLoaded != -1)) {
+                if ((charLoaded != ',') && (charLoaded != '\n') && (charLoaded != -1)) {
                     stringLoaded += (char) charLoaded;
                 } else {
                     switch (propertyCount) {
@@ -78,5 +74,27 @@ public class DataFilesService {
             System.out.println("Nastąpił błąd podczas wczytywania znaku z pliku");
         }
         return listOfPomUnits;
+    }
+    public void saveData(List<PomUnit> listPomUnit) {
+        try {
+            this.fWriter = new FileWriter("src/PomodoroTrackerData.txt");
+            this.buffWriter = new BufferedWriter(fWriter);
+            for (int index = 0; index < listPomUnit.size(); index++) {
+                buffWriter.write(listPomUnit.get(index).getCategory());
+                buffWriter.write(",");
+                buffWriter.write(listPomUnit.get(index).getDescription());
+                buffWriter.write(",");
+                buffWriter.write(String.valueOf(listPomUnit.get(index).getDuration()));
+                buffWriter.write(",");
+                buffWriter.write(String.valueOf(listPomUnit.get(index).getDate()));
+                if (index < listPomUnit.size() - 1) {
+                    buffWriter.newLine();
+                }
+            }
+            buffWriter.close();
+            fWriter.close();
+        } catch (IOException IOe) {
+            System.out.println("Przechwycono IOException w funkcji saveData();");
+        }
     }
 }

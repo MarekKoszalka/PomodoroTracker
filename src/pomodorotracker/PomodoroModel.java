@@ -52,7 +52,8 @@ public class PomodoroModel {
     }
     public void addPomUnitToList(PomUnit pomUnit) {
         this.pomUnitList.add(pomUnit);
-        // TODO ta funkcja powinna odświeżać VIEW po dodaniu POMa
-        // warto pobawić się w @Observable
+    }
+    public void saveDataInFile(){
+        dfs.saveData(pomUnitObsList);   
     }
 }
