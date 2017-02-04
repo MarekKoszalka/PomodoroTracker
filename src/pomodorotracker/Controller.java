@@ -7,16 +7,24 @@ package pomodorotracker;
 
 
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javax.swing.Timer;
 
 /**
@@ -42,6 +50,8 @@ public class Controller implements ActionListener, ListChangeListener<PomUnit> {
     @FXML
     private Label                        leftTime;
     @FXML
+    private Pane                         settingsPane;
+    @FXML
     private TableView<PomUnit>           tableOfPomUnits;
     @FXML
     private TableColumn<PomUnit, String> categoryCol;
@@ -58,6 +68,29 @@ public class Controller implements ActionListener, ListChangeListener<PomUnit> {
     @FXML
     private TextField                    descriptionTextF;
 
+    @FXML
+    private void handleButtonAction(ActionEvent ae) {
+        if (ae.getSource() == settingsButton) {
+            this.initSettingsWindow();
+        }
+    }
+    private void initSettingsWindow() {
+        Stage stage;
+        Parent root;
+        stage = new Stage();
+        try {
+            root = FXMLLoader.load(getClass().getResource("SettingsWindow.fxml"));
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(settingsButton.getScene().getWindow());
+            stage.getIcons().add(new Image("pomodorotracker/icon.png"));
+            stage.setTitle("Settings");
+            stage.showAndWait();
+        } catch (IOException IOE) {
+            System.out.println("IOException: Nie udało się otworzyć/wczytać SettingsWindow.fxml");
+            IOE.printStackTrace();
+        }
+    }
     @FXML
     private void handleStartButtonAction(ActionEvent event) {
         System.out.println("Przed switch(buttonMode)");
@@ -107,12 +140,11 @@ public class Controller implements ActionListener, ListChangeListener<PomUnit> {
     @FXML
     private void handleAddButtonAction(ActionEvent event) {
         System.out.println("Wowołano funkcję: handleAddButtonAction");
-            model.addPomUnitToList(new PomUnit(this.categoryTextF.getText(),
-                    this.descriptionTextF.getText(),
-                    Long.valueOf(this.durationTextF.getText())));
-            double prefHeight = this.tableOfPomUnits.getPrefHeight();
-            this.tableOfPomUnits.setPrefHeight(prefHeight-1);
-            this.tableOfPomUnits.setPrefHeight(prefHeight);
+        model.addPomUnitToList(new PomUnit(this.categoryTextF.getText(), this.descriptionTextF.getText(),
+                Long.valueOf(this.durationTextF.getText())));
+        double prefHeight = this.tableOfPomUnits.getPrefHeight();
+        this.tableOfPomUnits.setPrefHeight(prefHeight - 1);
+        this.tableOfPomUnits.setPrefHeight(prefHeight);
     }
     public void initialize() {
         buttonMode = START_BUTTON_MODE;

@@ -26,7 +26,7 @@
                <font>
                   <Font size="24.0" />
                </font></Label>
-            <Button fx:id="settingsButton" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="41.0" text="Sett" />
+            <Button fx:id="settingsButton" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="41.0" text="Sett" />
          </children>
       </Pane>
       <TableView fx:id="tableOfPomUnits" layoutX="13.0" layoutY="116.0" prefHeight="222.0" prefWidth="423.0">
@@ -39,17 +39,17 @@
       </TableView>
       <Pane layoutX="13.0" layoutY="350.0" prefHeight="37.0" prefWidth="423.0">
          <children>
-            <TextField fx:id="durationTextF" alignment="CENTER" layoutX="281.0" layoutY="6.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="91.0" promptText="duration">
+            <TextField fx:id="categoryTextF" alignment="CENTER" layoutY="6.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="91.0" promptText="category" text="category">
                <opaqueInsets>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </opaqueInsets>
             </TextField>
-            <TextField fx:id="categoryTextF" alignment="CENTER" layoutY="6.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="91.0" promptText="category">
+            <TextField fx:id="descriptionTextF" alignment="CENTER" layoutX="91.0" layoutY="6.0" prefHeight="25.0" prefWidth="190.0" promptText="description" text="description">
                <opaqueInsets>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </opaqueInsets>
             </TextField>
-            <TextField fx:id="descriptionTextF" alignment="CENTER" layoutX="91.0" layoutY="6.0" prefHeight="25.0" prefWidth="190.0" promptText="description">
+            <TextField fx:id="durationTextF" alignment="CENTER" layoutX="281.0" layoutY="6.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="91.0" promptText="duration" text="duration">
                <opaqueInsets>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </opaqueInsets>

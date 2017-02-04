@@ -26,7 +26,7 @@ public class PomodoroModel {
         dfs = new DataFilesService();
         pomUnitList = new ArrayList<>(dfs.loadData());
         pomUnitObsList = FXCollections.observableList(pomUnitList);
-        pomUnitObsList.addListener(controller);
+        pomUnitObsList.addListener(this.controller);
         
         /*
          * PomUnit testUnit = new PomUnit("testowa",
