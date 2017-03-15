@@ -9,15 +9,16 @@ import javafx.stage.Stage;
 
 public class SettingsWinController {
 
-    private CountdownTimer pomodoroTimer;
+    private SettingsFilesService settingsFilesServie;
+    private CountdownTimer       pomodoroTimer;
     @FXML
-    private TextField      singlePomodoroDuration;
+    private TextField            singlePomodoroDuration;
     @FXML
-    private TextField      shortBreakDuration;
+    private TextField            shortBreakDuration;
     @FXML
-    private Button         saveSettingsButton;
+    private Button               saveSettingsButton;
     @FXML
-    private Button         cancelSettingsButton;
+    private Button               cancelSettingsButton;
 
     @FXML
     private void handleButtonAction(ActionEvent ae) {
@@ -33,6 +34,7 @@ public class SettingsWinController {
         }
     }
     public void initialize() {
+        settingsFilesServie = new SettingsFilesService();
     }
     public void setPomodoroTimer(CountdownTimer pomodoroTimer) {
         this.pomodoroTimer = pomodoroTimer;

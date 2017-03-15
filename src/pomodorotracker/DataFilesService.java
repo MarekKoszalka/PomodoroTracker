@@ -18,7 +18,7 @@ import java.util.List;
 public class DataFilesService {
 
     private FileReader     fReader    = null;
-    // private BufferedReader buffReader = null;
+    private BufferedReader buffReader = null;
     private FileWriter     fWriter    = null;
     private BufferedWriter buffWriter = null;
 
@@ -27,6 +27,7 @@ public class DataFilesService {
     public ArrayList<PomUnit> loadData() {
         try {
             this.fReader = new FileReader("src/PomodoroTrackerData.txt");
+            this.buffReader = new BufferedReader(fReader);
         } catch (FileNotFoundException e) {
             System.out.println("Nie można było otworzyć pliku z danymi");
         }
@@ -37,7 +38,7 @@ public class DataFilesService {
         String stringLoaded = "";
         try {
             do {
-                charLoaded = (int) fReader.read();
+                charLoaded = (int) buffReader.read();
                 if ((charLoaded != ',') && (charLoaded != '\n') && (charLoaded != -1)) {
                     stringLoaded += (char) charLoaded;
                 } else {
@@ -52,10 +53,10 @@ public class DataFilesService {
                         bufferPomUnit.setDuration(stringLoaded);
                         break;
                     case 3:
-                        stringLoaded = "";// ta linijka powinna zostac
-                                          // usunieta gdy czytanie
-                                          // LocalDate bedzie juz
-                                          // zaimplementowanie
+                        stringLoaded = "";
+                        // ta linijka powinna zostac usunieta gdy
+                        // czytanie LocalDate bedzie juz
+                        // zaimplementowanie
                         bufferPomUnit.setDate(LocalDate.now());
                         break;
                     default:
