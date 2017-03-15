@@ -1,11 +1,12 @@
-Zdrowie,Picie wody,10000,2017-02-04
-Sport,Trening Burpees,34000,2017-02-04
-Sport,Rzucianie trójek w kosza,31000,2017-02-04
-Pies,Spacer,34500,2017-02-04
-Pies,Spacer,34500,2017-02-04
-Pies,Spacer,34500,2017-02-04
-Pies,Spacer,34500,2017-02-04
-﻿Nauka,Programowanie w Javie,30000,2017-02-04
-Nauka,Słówka z niemieckiego,15000,2017-02-04
-Nauka,Słówka z angielskiego,12333,2017-02-04
-Nauka,Programowanie w Javie i C#,12322,2017-02-04
+Nauka,Nauka C#,16000,2017-03-14
+Zdrowie,Picie wody,10000,2017-03-14
+﻿Nauka,Programowanie w Javie,30000,2017-03-14
+Nauka,Programowanie w Javie i C#,12322,2017-03-14
+Sport,Rzucianie trójek w kosza,31000,2017-03-14
+Nauka,Słówka z angielskiego,12333,2017-03-14
+Nauka,Słówka z niemieckiego,15000,2017-03-14
+Pies,Spacer,34500,2017-03-14
+Pies,Spacer,34500,2017-03-14
+Pies,Spacer,34500,2017-03-14
+Pies,Spacer,34500,2017-03-14
+Sport,Trening Burpees,34000,2017-03-14

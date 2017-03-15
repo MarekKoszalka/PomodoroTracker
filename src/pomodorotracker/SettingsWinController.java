@@ -4,14 +4,20 @@ package pomodorotracker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class SettingsWinController {
 
+    private CountdownTimer pomodoroTimer;
     @FXML
-    private Button saveSettingsButton;
+    private TextField      singlePomodoroDuration;
     @FXML
-    private Button cancelSettingsButton;
+    private TextField      shortBreakDuration;
+    @FXML
+    private Button         saveSettingsButton;
+    @FXML
+    private Button         cancelSettingsButton;
 
     @FXML
     private void handleButtonAction(ActionEvent ae) {
@@ -24,9 +30,13 @@ public class SettingsWinController {
             System.out.println("pressed cancelSettingsButton");
             stage = (Stage) cancelSettingsButton.getScene().getWindow();
             stage.close();
-            System.out.println("wymuszam działanie czegoś");
         }
     }
     public void initialize() {
+    }
+    public void setPomodoroTimer(CountdownTimer pomodoroTimer) {
+        this.pomodoroTimer = pomodoroTimer;
+        this.singlePomodoroDuration.setText(this.pomodoroTimer.getRequestedTimeS());
+        // shortBreakDuration.setText(pomodoroTimer.getShortBreakTime);
     }
 }

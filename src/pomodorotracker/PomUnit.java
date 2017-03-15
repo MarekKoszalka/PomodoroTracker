@@ -56,6 +56,7 @@ public final class PomUnit {
     }
     public void setDate(LocalDate date) {
         this.date = date;
+        //TODO: DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     }
     // ---------------------------------- GETTERS ---------------
     public String getCategory() {

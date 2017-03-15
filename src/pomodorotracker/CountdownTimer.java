@@ -13,6 +13,7 @@ public class CountdownTimer{
     private long pauseTimeTotal;
     private long stopMoment;
     private long requestedTime; // this is requested time after... 
+    private long shortBreakTime;
     private boolean isTicking;  //...which counting is finished.
     
 //+++++++++++++++++++++++++CONSTRUCTOR++++++++++++++++++++++++++++++++++++++++++    
@@ -37,6 +38,9 @@ public class CountdownTimer{
     private void setIfTicking(boolean b){
         this.isTicking = b;
     }
+    public void setShortBreakTime(long shortBreakTime) {
+        this.shortBreakTime = shortBreakTime;
+    }
     //--------------GETTERS-----------------------------------------------------
     public long getRequestedTime(){
         return this.requestedTime;
@@ -47,7 +51,9 @@ public class CountdownTimer{
     public boolean getIfTicking(){
         return this.isTicking;
     }
-            
+    public long getShortBreakTime() {
+        return shortBreakTime;
+    }       
     public final long getActualTimeLeft(){
         long t = requestedTime - (System.currentTimeMillis() - startMoment ) + pauseTimeTotal;
         if(t > 0){
@@ -88,4 +94,6 @@ public class CountdownTimer{
         stopMoment = System.currentTimeMillis();
         this.setIfTicking(false);
     }
+    //TODO private FormatLongToTimeString()
+    
 }

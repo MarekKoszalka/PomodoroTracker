@@ -33,7 +33,7 @@ import javax.swing.Timer;
  */
 public class Controller implements ActionListener, ListChangeListener<PomUnit> {
 
-    PomodoroModel                        model;
+    public PomodoroModel                 model;
     public Timer                         timer;
     public CountdownTimer                pomodoroTimer;
     private int                          buttonMode;
@@ -79,7 +79,11 @@ public class Controller implements ActionListener, ListChangeListener<PomUnit> {
         Parent root;
         stage = new Stage();
         try {
-            root = FXMLLoader.load(getClass().getResource("SettingsWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SettingsWindow.fxml"));
+            root = (Parent)fxmlLoader.load();
+            SettingsWinController settController = fxmlLoader.<SettingsWinController>getController(); 
+            //SettingsWinController settController = new SettingsWinController();
+            settController.setPomodoroTimer(this.pomodoroTimer);
             stage.setScene(new Scene(root));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(settingsButton.getScene().getWindow());
@@ -145,6 +149,9 @@ public class Controller implements ActionListener, ListChangeListener<PomUnit> {
         double prefHeight = this.tableOfPomUnits.getPrefHeight();
         this.tableOfPomUnits.setPrefHeight(prefHeight - 1);
         this.tableOfPomUnits.setPrefHeight(prefHeight);
+    }
+    public Controller getReference(){
+        return this;
     }
     public void initialize() {
         buttonMode = START_BUTTON_MODE;
