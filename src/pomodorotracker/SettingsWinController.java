@@ -37,6 +37,6 @@ public class SettingsWinController {
     public void setPomodoroTimer(CountdownTimer pomodoroTimer) {
         this.pomodoroTimer = pomodoroTimer;
         this.singlePomodoroDuration.setText(this.pomodoroTimer.getRequestedTimeS());
-        // shortBreakDuration.setText(pomodoroTimer.getShortBreakTime);
+        this.shortBreakDuration.setText(pomodoroTimer.getShortBreakTimeS());
     }
 }
