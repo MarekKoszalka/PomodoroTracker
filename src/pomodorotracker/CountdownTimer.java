@@ -11,30 +11,43 @@ public class CountdownTimer {
     // +++++++++++++ CONSTANS ++++++++++++++++++++++++++++
 
     // +++++++++++++++VARIABLES AND OBJECTS+++++++++++++++
-    private long    startMoment;
-    private long    pauseTimeTotal;
-    private long    stopMoment;
-    private long    requestedTime; // this is requested time after...
-    private long    shortBreakTime;// ...which counting is finished.
-    private boolean isTicking;     
-    
-    //BELOW constants. in future implement them as enumeration !!!
-    private static final int TIMER_MODE_POMODORO = 0;     
-    private static final int TIMER_MODE_SHORT_BREAK = 1;
-    private static final int TIMER_MODE_LONG_BREAK = 2;
-    //TODO implement break times etc. switching-ticking
+    private long      startMoment;
+    private long      pauseTimeTotal;
+    private long      stopMoment;
+    private long      requestedTime;         // this is requested time
+                                             // after...
+    private long      shortBreakTime;        // ...which counting is
+                                             // finished.
+    /**
+     * this variable describes how many short breaks user will have
+     * before longer one
+     */
+    private int       shortBreaksLimitAmount;
+    private int       shortBreaksCount;
+    private boolean   isTicking;
+    private TimerMode currentMode;
+
+    // TODO implement break times etc. switching-ticking
+    private enum TimerMode {
+        Pomodoro, ShortBreak, LongBreak
+    }
+
     // +++++++++++++++++++++++++CONSTRUCTOR++++++++++++++++++++++++++++++++++++++++++
     public CountdownTimer() {
+        this.shortBreaksLimitAmount = 4;
         this.startMoment = 0;
         this.stopMoment = 0;
         this.pauseTimeTotal = 0;
         this.requestedTime = 0;
+        this.currentMode = TimerMode.Pomodoro;
     }
     public CountdownTimer(long requestedTime) {
+        this.shortBreaksLimitAmount = 4;
         this.startMoment = 0;
         this.stopMoment = 0;
         this.pauseTimeTotal = 0;
         this.requestedTime = requestedTime;
+        this.currentMode = TimerMode.Pomodoro;
     }
     // +++++++++++++++++++++++++METHODS++++++++++++++++++++++++++++++++++++++++++++++
     // --------------SETTERS-----------------------------------------------------
@@ -43,11 +56,13 @@ public class CountdownTimer {
     }
     private void setIfTicking(boolean b) {
         this.isTicking = b;
+        if (b == false)
+            this.setMode();
     }
     public void setShortBreakTime(long shortBreakTime) {
         this.shortBreakTime = shortBreakTime;
     }
-    public void setAllSettings(ArrayList<String> settingsList){
+    public void setAllSettings(ArrayList<String> settingsList) {
         System.out.println("CountdowneTimer inner: \n");
         for (String string : settingsList) {
             System.out.println(string);
@@ -75,6 +90,9 @@ public class CountdownTimer {
         long t = requestedTime - (System.currentTimeMillis() - startMoment) + pauseTimeTotal;
         if (t > 0) {
             return t;
+        } else if (isTicking && t <= 0) {
+            this.setIfTicking(false);
+            return requestedTime;
         } else if (!isTicking) {
             return requestedTime;
         } else
@@ -125,9 +143,31 @@ public class CountdownTimer {
         fmt.close();
         return formattedDuration;
     }
-    public static long FormatTimeStringtoLong(String formattedDuration){
+    public static long FormatTimeStringtoLong(String formattedDuration) {
         long minutes = Long.valueOf(formattedDuration.substring(0, 2));
         long seconds = Long.valueOf(formattedDuration.substring(3, 5));
-        return (long)(60000*minutes + 1000*seconds);
+        return (long) (60000 * minutes + 1000 * seconds);
+    }
+    private void setMode() {
+        switch (currentMode) {
+        case Pomodoro:
+            if (shortBreaksCount < shortBreaksLimitAmount)
+                currentMode = TimerMode.ShortBreak;
+            else if (currentMode.equals(TimerMode.Pomodoro) && shortBreaksCount >= shortBreaksLimitAmount)
+                currentMode = TimerMode.LongBreak;
+            break;
+        case ShortBreak:
+        case LongBreak:
+            currentMode = TimerMode.Pomodoro;
+            break;
+        }
+        /*
+         * if(currentMode.equals(TimerMode.Pomodoro) &&
+         * shortBreaksCount < shortBreaksLimitAmount) currentMode =
+         * TimerMode.ShortBreak; else
+         * if(currentMode.equals(TimerMode.Pomodoro) &&
+         * shortBreaksCount >= shortBreaksLimitAmount) currentMode =
+         * TimerMode.LongBreak; else if
+         */
     }
 }
