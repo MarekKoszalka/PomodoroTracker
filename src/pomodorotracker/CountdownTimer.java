@@ -1,24 +1,28 @@
 package pomodorotracker;
 
 
+import java.util.ArrayList;
 import java.util.Formatter;
 
 /**
  * @author Marek Koszalka from Poland
  */
 public class CountdownTimer {
-    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    // CONSTANS ++++++++++
+    // +++++++++++++ CONSTANS ++++++++++++++++++++++++++++
 
-    // ++++++++++++++++++++++++VARIABLES AND
-    // OBJECTS+++++++++++++++++++++++++++++++++
+    // +++++++++++++++VARIABLES AND OBJECTS+++++++++++++++
     private long    startMoment;
     private long    pauseTimeTotal;
     private long    stopMoment;
     private long    requestedTime; // this is requested time after...
-    private long    shortBreakTime;
-    private boolean isTicking;     // ...which counting is finished.
-
+    private long    shortBreakTime;// ...which counting is finished.
+    private boolean isTicking;     
+    
+    //BELOW constants. in future implement them as enumeration !!!
+    private static final int TIMER_MODE_POMODORO = 0;     
+    private static final int TIMER_MODE_SHORT_BREAK = 1;
+    private static final int TIMER_MODE_LONG_BREAK = 2;
+    //TODO implement break times etc. switching-ticking
     // +++++++++++++++++++++++++CONSTRUCTOR++++++++++++++++++++++++++++++++++++++++++
     public CountdownTimer() {
         this.startMoment = 0;
@@ -43,6 +47,14 @@ public class CountdownTimer {
     public void setShortBreakTime(long shortBreakTime) {
         this.shortBreakTime = shortBreakTime;
     }
+    public void setAllSettings(ArrayList<String> settingsList){
+        System.out.println("CountdowneTimer inner: \n");
+        for (String string : settingsList) {
+            System.out.println(string);
+        }
+        this.setRequestedTime(Long.valueOf(settingsList.get(0)));
+        this.setShortBreakTime(Long.valueOf(settingsList.get(1)));
+    }
     // --------------GETTERS-----------------------------------------------------
     public long getRequestedTime() {
         return this.requestedTime;
@@ -56,7 +68,7 @@ public class CountdownTimer {
     public long getShortBreakTime() {
         return shortBreakTime;
     }
-    public String getShortBreakTimeS(){
+    public String getShortBreakTimeS() {
         return this.FormatLongToTimeString(this.shortBreakTime);
     }
     public final long getActualTimeLeft() {
@@ -112,5 +124,10 @@ public class CountdownTimer {
         String formattedDuration = fmt.toString();
         fmt.close();
         return formattedDuration;
+    }
+    public static long FormatTimeStringtoLong(String formattedDuration){
+        long minutes = Long.valueOf(formattedDuration.substring(0, 2));
+        long seconds = Long.valueOf(formattedDuration.substring(3, 5));
+        return (long)(60000*minutes + 1000*seconds);
     }
 }

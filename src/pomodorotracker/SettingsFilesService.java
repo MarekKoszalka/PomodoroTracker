@@ -29,14 +29,19 @@ public class SettingsFilesService {
         }
         ArrayList<String> SettingsList = new ArrayList<String>();
         try {
-            SettingsList.add(buffReader.readLine());
+            String buffString;
+            do {
+                buffString = buffReader.readLine();
+                if (buffString != null)
+                    SettingsList.add(buffString);
+            } while (buffString != null);
         } catch (IOException e) {
             System.out.println("Error: problems during reading the file");
             e.printStackTrace();
         }
         return SettingsList;
     }
-    public void saveSettings(List<String> SettingsList) {
+    public void saveSettings(List<String> settingsList) {
         try {
             fWriter = new FileWriter("src/pomodoroTrackerSettings.txt");
             buffWriter = new BufferedWriter(fWriter);
@@ -44,9 +49,14 @@ public class SettingsFilesService {
             System.out.println("Error: Can not save data to file with settings");
         }
         try {
-            for (int i = 0; i < SettingsList.size(); i++) {
-                buffWriter.write(SettingsList.get(i) + System.lineSeparator());
+            for (int i = 0; i < settingsList.size(); i++) {
+                buffWriter.write(settingsList.get(i));
+                System.out.println("wnetrze SFS: " + settingsList.get(i));
+                if (i + 1 < settingsList.size())
+                    buffWriter.write(System.lineSeparator());
             }
+            buffWriter.close();
+            fWriter.close();
         } catch (IOException e) {
             System.out.println("Error: Problems with writing settings to the file");
             e.printStackTrace();

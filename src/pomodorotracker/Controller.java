@@ -80,10 +80,10 @@ public class Controller implements ActionListener, ListChangeListener<PomUnit> {
         stage = new Stage();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SettingsWindow.fxml"));
-            root = (Parent)fxmlLoader.load();
-            SettingsWinController settController = fxmlLoader.<SettingsWinController>getController(); 
-            //SettingsWinController settController = new SettingsWinController();
+            root = (Parent) fxmlLoader.load();
+            SettingsWinController settController = fxmlLoader.<SettingsWinController>getController();
             settController.setPomodoroTimer(this.pomodoroTimer);
+            settController.setModelRef(this.model);
             stage.setScene(new Scene(root));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(settingsButton.getScene().getWindow());
@@ -150,14 +150,12 @@ public class Controller implements ActionListener, ListChangeListener<PomUnit> {
         this.tableOfPomUnits.setPrefHeight(prefHeight - 1);
         this.tableOfPomUnits.setPrefHeight(prefHeight);
     }
-    public Controller getReference(){
-        return this;
-    }
     public void initialize() {
         buttonMode = START_BUTTON_MODE;
         timer = new Timer(TENTH_OF_SEC, this);
         pomodoroTimer = new CountdownTimer(10000);
         model = new PomodoroModel(this);
+        pomodoroTimer.setAllSettings(model.getSettingsList());
         categoryCol.setCellValueFactory(new PropertyValueFactory<PomUnit, String>("category"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<PomUnit, String>("description"));
         durationCol.setCellValueFactory(new PropertyValueFactory<PomUnit, String>("duration"));
@@ -201,4 +199,7 @@ public class Controller implements ActionListener, ListChangeListener<PomUnit> {
         System.out.println("Wywolano funkcje OnChanged");
         model.saveDataInFile();
     };
+    public PomodoroModel passModelRef(){
+        return this.model;
+    }
 }

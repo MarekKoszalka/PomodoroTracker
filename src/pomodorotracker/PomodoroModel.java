@@ -17,6 +17,8 @@ import javafx.collections.FXCollections;
 public class PomodoroModel {
 
     private final DataFilesService        dfs;
+    private SettingsFilesService          sfs;
+    public ArrayList<String>              settingsList;
     private final List<PomUnit>           pomUnitList;
     private final ObservableList<PomUnit> pomUnitObsList;
     private Controller                    controller;
@@ -27,7 +29,8 @@ public class PomodoroModel {
         pomUnitList = new ArrayList<>(dfs.loadData());
         pomUnitObsList = FXCollections.observableList(pomUnitList);
         pomUnitObsList.addListener(this.controller);
-        
+        sfs = new SettingsFilesService();
+        settingsList = (ArrayList<String>) sfs.loadSettings();
         /*
          * PomUnit testUnit = new PomUnit("testowa",
          * "to tylko testowy Unit", 30000); PomUnit testUnit2= new
@@ -53,7 +56,17 @@ public class PomodoroModel {
     public void addPomUnitToList(PomUnit pomUnit) {
         this.pomUnitList.add(pomUnit);
     }
-    public void saveDataInFile(){
-        dfs.saveData(pomUnitObsList);   
+    public void saveDataInFile() {
+        dfs.saveData(pomUnitObsList);
+    }
+    public void saveSettingsInFile(ArrayList<String> settingsList) {
+        System.out.println("PomodoroModel inner: \n");
+        for (String string : settingsList) {
+            System.out.println(string);
+        }
+        sfs.saveSettings(settingsList);
+    }
+    public ArrayList<String> getSettingsList() {
+        return this.settingsList;
     }
 }
