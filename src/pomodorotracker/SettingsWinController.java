@@ -18,6 +18,8 @@ public class SettingsWinController {
     @FXML
     private TextField         shortBreakDuration;
     @FXML
+    private TextField         longBreakDuration;
+    @FXML
     private Button            saveSettingsButton;
     @FXML
     private Button            cancelSettingsButton;
@@ -47,8 +49,9 @@ public class SettingsWinController {
     }
     public void setPomodoroTimer(CountdownTimer pomodoroTimer) {
         this.pomodoroTimer = pomodoroTimer;
-        this.singlePomodoroDuration.setText(this.pomodoroTimer.getRequestedTimeS());
+        this.singlePomodoroDuration.setText(pomodoroTimer.getPomodoroTimeS());
         this.shortBreakDuration.setText(pomodoroTimer.getShortBreakTimeS());
+        this.longBreakDuration.setText(pomodoroTimer.getLongBreakTimeS());
     }
     public void setModelRef(PomodoroModel model) {
         this.model = model;
@@ -57,6 +60,7 @@ public class SettingsWinController {
         ArrayList<String> buffSettingsList = new ArrayList<String>();
         buffSettingsList.add(String.valueOf(CountdownTimer.FormatTimeStringtoLong(this.singlePomodoroDuration.getText())));
         buffSettingsList.add(String.valueOf(CountdownTimer.FormatTimeStringtoLong(this.shortBreakDuration.getText())));
+        buffSettingsList.add(String.valueOf(CountdownTimer.FormatTimeStringtoLong(this.longBreakDuration.getText())));
         return buffSettingsList;
     }
 }

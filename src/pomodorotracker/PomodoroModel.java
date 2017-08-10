@@ -31,15 +31,6 @@ public class PomodoroModel {
         pomUnitObsList.addListener(this.controller);
         sfs = new SettingsFilesService();
         settingsList = (ArrayList<String>) sfs.loadSettings();
-        /*
-         * PomUnit testUnit = new PomUnit("testowa",
-         * "to tylko testowy Unit", 30000); PomUnit testUnit2= new
-         * PomUnit("testowa2",
-         * "to tylko kolejny testowy junit",10000);
-         * 
-         * pomUnitArrList.add(testUnit);
-         * pomUnitArrList.add(testUnit2);
-         */
     }
     public void setController(Controller controller) {
         this.controller = controller;

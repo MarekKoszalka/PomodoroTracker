@@ -135,9 +135,9 @@ public class Controller implements ActionListener, ListChangeListener<PomUnit> {
     }
     @FXML
     private void handleStopButtonAction(ActionEvent event) {
-        System.out.println("You clicked STPOO me!");
+        System.out.println("You clicked STOP me!");
         pomodoroTimer.stop();
-        leftTime.setText(pomodoroTimer.getRequestedTimeS());
+        leftTime.setText(pomodoroTimer.getActualTimeLeftString());
         buttonMode = START_BUTTON_MODE;
         setStartButtonMode("START");
     }
@@ -146,9 +146,7 @@ public class Controller implements ActionListener, ListChangeListener<PomUnit> {
         System.out.println("Wowołano funkcję: handleAddButtonAction");
         model.addPomUnitToList(new PomUnit(this.categoryTextF.getText(), this.descriptionTextF.getText(),
                 Long.valueOf(this.durationTextF.getText())));
-        double prefHeight = this.tableOfPomUnits.getPrefHeight();
-        this.tableOfPomUnits.setPrefHeight(prefHeight - 1);
-        this.tableOfPomUnits.setPrefHeight(prefHeight);
+        tableOfPomUnits.refresh();
     }
     public void initialize() {
         buttonMode = START_BUTTON_MODE;
@@ -186,20 +184,18 @@ public class Controller implements ActionListener, ListChangeListener<PomUnit> {
     }
     private void refreshingLabelTick(java.awt.event.ActionEvent e) {
         if (e.getSource() == timer) {
-            if (pomodoroTimer.getActualTimeLeft() <= 0) {
+            setLeftTimeLabel(pomodoroTimer.getActualTimeLeftString());
+/*            if (pomodoroTimer.getActualTimeLeft() <= 0) {
                 pomodoroTimer.stop();
-            }
-            if (pomodoroTimer.getIfTicking()) {
-                setLeftTimeLabel(pomodoroTimer.getActualTimeLeftString());
-            }
+            }*/
         }
     }
     @Override
     public void onChanged(Change<? extends PomUnit> change) {
         System.out.println("Wywolano funkcje OnChanged");
         model.saveDataInFile();
-    };
-    public PomodoroModel passModelRef(){
+    }
+    public PomodoroModel passModelRef() {
         return this.model;
     }
 }
